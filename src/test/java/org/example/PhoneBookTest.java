@@ -23,7 +23,7 @@ class PhoneBookTest {
             "Anna, +89997355656, +89997000996, null",
             "Olga, +89967777656, +89997355656, Anna"
     })
-    void testAdd(String name, String phoneNumber, String resultPhoneNumber,String nameToFind){
+    void testFindByNumber(String name, String phoneNumber, String resultPhoneNumber,String nameToFind){
         PhoneBook.add(name, phoneNumber);
         String resultName = PhoneBook.findByNumber(resultPhoneNumber);
         if(nameToFind.equals("null")){
@@ -31,6 +31,21 @@ class PhoneBookTest {
             return;
         }
         Assertions.assertEquals(nameToFind, resultName);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Anna, +89997355656, null, Liza",
+            "Olga, +89967777656, +89997355656, Anna"
+    })
+    void testFindByName(String name, String phoneNumber, String resultPhoneNumber,String resultName){
+        PhoneBook.add(name, phoneNumber);
+        String result = PhoneBook.findByName(resultName);
+        if(resultPhoneNumber.equals("null")){
+            Assertions.assertEquals(null, result);
+            return;
+        }
+        Assertions.assertEquals(resultPhoneNumber, result);
     }
 
 }
