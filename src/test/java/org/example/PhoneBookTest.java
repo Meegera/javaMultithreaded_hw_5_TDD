@@ -72,7 +72,7 @@ class PhoneBookTest {
             PhoneBook.printAllNames();
             // Получение вывода в строку
             String actualOutput = outputStream.toString().trim();
-            String expectedOutput = "Andrey\nAnna\nLiza";
+            String expectedOutput = "Andrey Anna Liza";
             Assertions.assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(originalOut);

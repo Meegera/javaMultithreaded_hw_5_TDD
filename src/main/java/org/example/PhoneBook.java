@@ -34,5 +34,8 @@ public class PhoneBook {
     }
 
     public static void printAllNames(){
+        for(Map.Entry<String, String> entry: phoneBook.entrySet()){
+            System.out.print(entry.getKey() + " ");
+        }
     }
 }
