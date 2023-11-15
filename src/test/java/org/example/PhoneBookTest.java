@@ -1,10 +1,18 @@
 package org.example;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Map;
+
 class PhoneBookTest {
+
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
     @ParameterizedTest
     @CsvSource({
@@ -46,6 +54,30 @@ class PhoneBookTest {
             return;
         }
         Assertions.assertEquals(resultPhoneNumber, result);
+    }
+
+    @Test
+    void testPrintAll(){
+        System.setOut(new PrintStream(outputStream));
+        try {
+            Map<String, String> data = Map.of(
+                    "Anna", "+89997355656",
+                    "Liza", "+89997387878",
+                    "Andrey", "+8999739929"
+            );
+            for(Map.Entry<String, String> entry:data.entrySet()){
+                PhoneBook.add(entry.getKey(), entry.getValue());
+            }
+
+            PhoneBook.printAllNames();
+            // Получение вывода в строку
+            String actualOutput = outputStream.toString().trim();
+            String expectedOutput = "Andrey\nAnna\nLiza";
+            Assertions.assertEquals(expectedOutput, actualOutput);
+        } finally {
+            System.setOut(originalOut);
+        }
+
     }
 
 }
