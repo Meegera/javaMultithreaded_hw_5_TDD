@@ -21,7 +21,7 @@ class PhoneBookTest {
     @ParameterizedTest
     @CsvSource({
             "Anna, +89997355656, +89997000996, null",
-            "Olga, +89997355656, +89997355656, Anna"
+            "Olga, +89967777656, +89997355656, Anna"
     })
     void testAdd(String name, String phoneNumber, String resultPhoneNumber,String nameToFind){
         PhoneBook.add(name, phoneNumber);
